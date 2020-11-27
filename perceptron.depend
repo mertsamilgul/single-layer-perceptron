@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1606477082 source:c:\users\monsterpc\desktop\ödev2_1\perceptron\main.cpp
+	<iostream>
+	<fstream>
+	"perceptron.h"
+	<vector>
+	<stdlib.h>
+	<time.h>
+
+1606477446 source:c:\users\monsterpc\desktop\ödev2_1\perceptron\src\perceptron.cpp
+	<iostream>
+	"perceptron.h"
+
+1606475236 c:\users\monsterpc\desktop\ödev2_1\perceptron\include\perceptron.h
+	<vector>
+
