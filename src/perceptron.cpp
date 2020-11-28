@@ -1,5 +1,6 @@
 #include <iostream>
 #include "perceptron.h"
+#define THRESHOLD 0.2
 
 perceptron::perceptron(int input_num,int output_num)
 {
@@ -25,18 +26,16 @@ perceptron::perceptron(int input_num,int output_num)
 perceptron::~perceptron()
 {
     for(int i=0;i<input_num;i++)
-        delete[] w[i];
+        delete[] w[i]; // dinamik acilan alanlar silinir.
 
     delete[] b;
 }
 
-int perceptron::train(vector< vector<float> > &input, vector<int> &output, const int max_epoch)
+int perceptron::train(vector< vector<float> > &input, vector<int> &output, const int max_epoch,float lr,bool delta_rule)
 {
     float y_in; // agirlikli toplam sonucu
     float y; // aktivasyon fonksiyonu sonucu
-    float th=0.5; // threshold degeri
-    float lr = 0.001;
-
+    float th=THRESHOLD;
     int i=0;
     bool same=false;
 
@@ -44,16 +43,13 @@ int perceptron::train(vector< vector<float> > &input, vector<int> &output, const
     {                             // veya tamamen egitilene kadar devam
 
         same=true;
-
-        //cout << i << ". epoch " << endl;
-
         for(int j=0;j<input.size();j++)
         {
 
             int target_1 = output[j]; // hangi sonucun 1 cikmasi
                                       // gerektigi tutulur.
             int t;
-
+            bool error_occ=false;;
 
             for(int z=0;z<output_num;z++)
             {
@@ -74,25 +70,22 @@ int perceptron::train(vector< vector<float> > &input, vector<int> &output, const
                 else
                     t=-1;
 
-                //cout << z << ": " << y << " | ";
-
                 if(y!=t)
                 {
-                    //cout << " E ";
 
                     for(int k=0;k<63;k++) // agirliklar guncellenir
-                        w[k][z] = w[k][z] + lr*t*input[j][k];
+                        if(delta_rule)
+                            w[k][z] = w[k][z] + lr*(t-y)*input[j][k]; // delta kurali
+                        else
+                            w[k][z] = w[k][z] + lr*t*input[j][k]; // perceptron kurali
 
                     b[z] = b[z] + lr*t; // bias guncellenir
 
                     same = false;
                 }
             }
-
-            //cout << endl;
         }
 
-        //cout << endl;
         i++;
     }
     return i;
@@ -100,7 +93,7 @@ int perceptron::train(vector< vector<float> > &input, vector<int> &output, const
 
 float perceptron::test(vector< vector<float> > &input, vector<int> &output)
 {
-    float th=0.2;
+    float th=THRESHOLD;
     float y;
     int error=0;
 
@@ -131,6 +124,7 @@ float perceptron::test(vector< vector<float> > &input, vector<int> &output)
             else
                 t=-1;
 
+
             if(y!=t)
                 error_occured = true;
         }
@@ -140,6 +134,17 @@ float perceptron::test(vector< vector<float> > &input, vector<int> &output)
     }
 
     return (input.size()-(float)error)/input.size();
+}
+
+void perceptron::print_weights()
+{
+    for(int i=0;i<input_num;i++)
+    {
+        for(int j=0;j<output_num;j++)
+        {
+                cout << "w(" << i << "," << j << "): " << w[i][j] << endl;
+        }
+    }
 }
 
 

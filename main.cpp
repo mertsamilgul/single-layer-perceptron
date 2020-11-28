@@ -6,32 +6,12 @@
 #include <time.h>
 
 using namespace std;
-void printFirstFont(vector<vector<float> > input)
-{
-    for(int q=0;q<1;q++)
-    {
-        for(int j=0;j<9;j++)
-        {
-            for(int i=7*q;i<7*q+7;i++)
-            {
-                for(int k=0;k<7;k++)
-                {
-                    if(input[i][j*7+k] == 1)
-                        std::cout << '#';
-                    else
-                        std::cout << ' ';
-                    std::cout << " ";
-                }
-                std::cout << " ";
-            }
-            std::cout << std::endl;
-        }
-        std::cout << std::endl;
-    }
-}
 
 void distort(vector<vector<float> > &input,float dis_percent)
-{
+ {
+                                        // karakterleri verilen yuzdede
+                                        // bozan fonksiyon
+
     srand(time(NULL));
 
     for(int i=0;i<input.size();i++)
@@ -49,7 +29,6 @@ void distort(vector<vector<float> > &input,float dis_percent)
 
 int main()
 {
-
     char* file_names[21]={
         "input/Font_1_A.txt",
         "input/Font_1_B.txt",
@@ -95,7 +74,7 @@ int main()
             if(neg == string::npos) // stringin icinde - isareti yoksa degeri 1'dir.
                 x.push_back(1);
             else
-                x.push_back(-1); // -1 : bipolar
+                x.push_back(0); // -1 : bipolar
                                  //  0 : binary
         }
 
@@ -105,20 +84,62 @@ int main()
         file.close();
     }
 
-    perceptron p1(63,7);
-    int train_time = p1.train(ins,outs,100);
+    perceptron p1(63,7); // 63 girisi ve 7 adet cikisi
+                         // bulunan bir perceptron olusturulur.
+                         // ilk agirliklar 0 a esitlenir.
+
+    int train_time = p1.train(ins,outs,100,0.01,1);
+                        // ins vektorunu giris, outs vektorunu
+                        // ise cikis kabul ederek
+                        // max epoch 100, learning rate 0.01
+                        // delta rule = 0 yani perceptron rule
+                        // kullanilacak sekilde perceptron egitilir.
+                        // egitim tamamlandigi epoch sayisi return edilir.
+
     cout << train_time << ". epochta egitim tamamlandi" << endl;
     cout << "Egitimden sonraki dogruluk: " << p1.test(ins,outs) << endl;
+                        // egitilmis perceptron uzerinde
+                        // bozulmamis veri ile test yapilir.
+                        // ve sonucta dogrulugun 1(%100) oldugu gorulur.
 
+    int dis_percent = 10; // karakterleri bozma yuzdesi
 
-
-    int dis_percent = 30; // distortion percentage
-
-    printFirstFont(ins);
     distort(ins,dis_percent);
-    printFirstFont(ins);
     cout << "%" << dis_percent << " bozma isleminde sonra dogruluk: " << p1.test(ins,outs) << endl;
+                        // karakter bozma islemi tamamlandiktan sonra
+                        // bozulmus karakterler ile ayni perceptron uzerinde
+                        // test yapilir ve dogrulugun dustugu gozlenir.
 
+    //p1.print_weights(); // son agirliklar ekrana yazdirilir.
 
     return 0;
 }
+
+/*
+// karakterlerin bozuldugu gorsel olarak
+// gostermek  icin hazirlanan fonksiyon.
+
+void printFirstFont(vector<vector<float> > input)
+{
+    for(int q=0;q<1;q++)
+    {
+        for(int j=0;j<9;j++)
+        {
+            for(int i=7*q;i<7*q+7;i++)
+            {
+                for(int k=0;k<7;k++)
+                {
+                    if(input[i][j*7+k] == 1)
+                        std::cout << '#';
+                    else
+                        std::cout << ' ';
+                    std::cout << " ";
+                }
+                std::cout << " ";
+            }
+            std::cout << std::endl;
+        }
+        std::cout << std::endl;
+    }
+}
+*/

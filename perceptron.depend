@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1606477082 source:c:\users\monsterpc\desktop\ödev2_1\perceptron\main.cpp
+1606483362 source:c:\users\monsterpc\desktop\ödev2_1\perceptron\main.cpp
 	<iostream>
 	<fstream>
 	"perceptron.h"
@@ -7,10 +7,40 @@
 	<stdlib.h>
 	<time.h>
 
-1606477446 source:c:\users\monsterpc\desktop\ödev2_1\perceptron\src\perceptron.cpp
+1606483362 source:c:\users\monsterpc\desktop\ödev2_1\perceptron\src\perceptron.cpp
 	<iostream>
 	"perceptron.h"
 
-1606475236 c:\users\monsterpc\desktop\ödev2_1\perceptron\include\perceptron.h
+1606481764 c:\users\monsterpc\desktop\ödev2_1\perceptron\include\perceptron.h
 	<vector>
+
+1606581673 source:c:\users\monsterpc\desktop\perceptron\main.cpp
+	<iostream>
+	<fstream>
+	"perceptron.h"
+	<vector>
+	<stdlib.h>
+	<time.h>
+
+1606577216 c:\users\monsterpc\desktop\perceptron\include\perceptron.h
+	<vector>
+
+1606581837 source:c:\users\monsterpc\desktop\perceptron\src\perceptron.cpp
+	<iostream>
+	"perceptron.h"
+
+1606581997 source:c:\users\monsterpc\desktop\ödev\perceptron\main.cpp
+	<iostream>
+	<fstream>
+	"perceptron.h"
+	<vector>
+	<stdlib.h>
+	<time.h>
+
+1606577216 c:\users\monsterpc\desktop\ödev\perceptron\include\perceptron.h
+	<vector>
+
+1606582949 source:c:\users\monsterpc\desktop\ödev\perceptron\src\perceptron.cpp
+	<iostream>
+	"perceptron.h"
 
